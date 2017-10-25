@@ -2,24 +2,24 @@ var colors = generateRandomColors(6);
 
 var squares = document.querySelectorAll(".square");
 var pickedColor = pickColor();
-var colorDisplay = document.getElementById('colorDisplay');
-var messageDisplay = document.querySelector('#message');
-var h1 = document.querySelector('h1');
-var resetButton = document.querySelector('#reset');
+var tryAgainDisplay = document.querySelector(".error");
+var successDisplay = document.querySelector(".success");
+var resetButton = document.querySelector("#reset");
 
 resetButton.addEventListener("click", function() {
   colors = generateRandomColors(6); // All new colors
   pickedColor = pickColor(); // Random color from array
-  colorDisplay.textContent = pickedColor;
+  renderPickedColor(pickedColor);
+  tryAgainDisplay.style.visibility = "hidden";
+  successDisplay.style.display = "none";
 
-  for (var i = 0; i< squares.length; i++) {
+  for (var i = 0; i < squares.length; i++) {
+    squares[i].classList.remove("square-wrong");
     squares[i].style.background = colors[i];
   }
-  h1.style.background = "#232323";
-})
+});
 
-
-colorDisplay.textContent = pickedColor;
+renderPickedColor(pickedColor);
 
 for(var i = 0; i < squares.length; i++) {
   squares[i].style.background = colors[i];
@@ -27,20 +27,21 @@ for(var i = 0; i < squares.length; i++) {
   squares[i].addEventListener("click", function() {
     var clickedColor = this.style.background;
 
-    if(clickedColor === pickedColor) {
-      messageDisplay. textContent = "Correct!";
-      resetButton.textContent = 'Play Again?';
+    if (clickedColor === pickedColor) {
+      successDisplay.style.display = "block";
+      resetButton.textContent = "Play Again?";
+      tryAgainDisplay.style.visibility = "hidden";
       changeColors(clickedColor);
-      h1.style.background = clickedColor;
     } else {
-      this.style.background = "#232323";
-      messageDisplay.textContent = "Try Again";
+      this.classList.add("square-wrong");
+      this.style = "";
+      tryAgainDisplay.style.visibility = "visible";
     }
   });
 }
 
 function changeColors(color) {
-  for(var i = 0; i<squares.length; i++) {
+  for (var i = 0; i < squares.length; i++) {
     squares[i].style.background = color;
   }
 }
@@ -52,16 +53,23 @@ function pickColor() {
 
 function generateRandomColors(num) {
   var arr = [];
-  for(var i = 0; i<num; i++) {
-    arr.push(randomColor())
-
+  for (var i = 0; i < num; i++) {
+    arr.push(randomColor());
   }
   return arr;
-
 }
+
 function randomColor() {
   var r = Math.floor(Math.random() * 256);
   var g = Math.floor(Math.random() * 256);
   var b = Math.floor(Math.random() * 256);
-  return "rgb(" + r +', ' + g +', ' +b + ')';
+  return "rgb(" + r +", " + g +", " + b + ")";
+}
+
+function renderPickedColor(pickedColor) {
+  var colorDisplays = document.querySelectorAll(".colorDisplay");
+
+  for (var i = 0; i < colorDisplays.length; i++) {
+    colorDisplays[i].textContent = pickedColor;
+  }
 }
