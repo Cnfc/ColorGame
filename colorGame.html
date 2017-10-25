@@ -3,22 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Color Game</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
   <link rel="stylesheet" href="colorGame.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
-  <h1>The Great <br>
-   <span id='colorDisplay'>RGB</span>
-    <br>
-    Color Game</h1>
+  <h1>The Great <span class='colorDisplay'>RGB</span> Game</h1>
 
-  <div id="stripe">
+  <div class="stripe">
     <button id="reset">New Colors</button>
-    <span id="message"></span>
-    <button class="mode">Easy</button>
-    <button class="mode selected">Hard</button>
+    <span class="error">Try again!</span>
   </div>
 
-  <div id="container">
+  <div class="colors">
+    <span>Choose the color that corresponds with <span class='colorDisplay'>RGB</span>:</span>
     <div class="square"></div>
     <div class="square"></div>
     <div class="square"></div>
@@ -26,6 +24,7 @@
     <div class="square"></div>
     <div class="square"></div>
   </div>
-<script src="colorGame.js"></script>
+  <span class="success">Correct!</span>
+  <script src="colorGame.js"></script>
 </body>
 </html>
